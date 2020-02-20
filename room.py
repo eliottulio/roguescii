@@ -3,46 +3,46 @@ class room:
 		self.closed = False;
 		self.doors = doors; # Top, Right, Bottom, Left
 
-	def update(self, player_pos, room_pos):
-		if (player_pos[0] == 0):
+	def update(self, player):
+		if (player.x == 0):
 			if not self.doors[3]:
-				player_pos[0] = 1;
+				player.x = 1;
 			else:
-				if player_pos[1] >= 3 and player_pos[1] <= 6:
-					player_pos[0] = 28;
-					room_pos[0] -= 1;
+				if player.y >= 3 and player.y <= 6:
+					player.x = 28;
+					player.room_x -= 1;
 				else:
-					player_pos[0] = 1;
-		elif (player_pos[0] == 29):
+					player.x = 1;
+		elif (player.x == 29):
 			if not self.doors[1]:
-				player_pos[0] = 28;
+				player.x = 28;
 			else:
-				if player_pos[1] >= 3 and player_pos[1] <= 6:
-					player_pos[0] = 1;
-					room_pos[0] += 1;
+				if player.y >= 3 and player.y <= 6:
+					player.x = 1;
+					player.room_x += 1;
 				else:
-					player_pos[0] = 28;
+					player.x = 28;
 
-		if (player_pos[1] == 0):
+		if (player.y == 0):
 			if not self.doors[0]:
-				player_pos[1] = 1;
+				player.y = 1;
 			else:
-				if player_pos[0] >= 11 and player_pos[0] <= 18:
-					player_pos[1] = 8;
-					room_pos[1] -= 1;
+				if player.x >= 11 and player.x <= 18:
+					player.y = 8;
+					player.room_y -= 1;
 				else:
-					player_pos[1] = 1;
-		elif (player_pos[1] == 9):
+					player.y = 1;
+		elif (player.y == 9):
 			if not self.doors[2]:
-				player_pos[1] = 8;
+				player.y = 8;
 			else:
-				if player_pos[0] >= 11 and player_pos[0] <= 18:
-					player_pos[1] = 1;
-					room_pos[1] += 1;
+				if player.x >= 11 and player.x <= 18:
+					player.y = 1;
+					player.room_y += 1;
 				else:
-					player_pos[1] = 8;
+					player.y = 8;
 
-		return player_pos, room_pos;
+		return player;
 
 
 

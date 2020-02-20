@@ -1,5 +1,6 @@
 import time, random, curses
 import room
+import player as player_
 
 def main(sc):
 	curses.nl();
@@ -8,37 +9,38 @@ def main(sc):
 	gameplay_window.keypad(True);
 	curses.curs_set(0);
 
-	player_x = 14;
-	player_y = 4;
-	room_x = 1;
-	room_y = 1;
 
-	rooms = [	[room.room((0, 0, 0, 0)), room.room((0, 0, 1, 0)), room.room((0, 0, 0, 0))],
-				[room.room((0, 0, 0, 0)), room.room((1, 1, 0, 0)), room.room((0, 0, 0, 1))],
-				[room.room((0, 0, 0, 0)), room.room((0, 0, 0, 0)), room.room((0, 0, 0, 0))]];
+
+	player = player_.player((14, 4), (1, 1));
+
+	rooms = [	[room.room((0, 1, 1, 0)), room.room((0, 0, 1, 1)), room.room((0, 0, 1, 0))],
+				[room.room((1, 0, 1, 0)), room.room((1, 1, 0, 0)), room.room((1, 0, 1, 1))],
+				[room.room((1, 0, 0, 0)), room.room((0, 1, 0, 0)), room.room((1, 0, 0, 1))]];
+
+
 
 	running = True;
+
+	gameplay_window.mvwin(player.room_y * 10, player.room_x * 30);
+	rooms[player.room_y][player.room_x].render(gameplay_window)
+	player.render(gameplay_window);
+
 	while running:
 		key = gameplay_window.getkey();
-		if key == 'KEY_UP':
-			player_y -= 1;
-		elif key == 'KEY_RIGHT':
-			player_x += 1;
-		elif key == 'KEY_DOWN':
-			player_y += 1;
-		elif key == 'KEY_LEFT':
-			player_x -= 1;
-		elif key == ' ':
+
+		if key == ' ':
 			running = False;
 
-		(player_x, player_y), (room_x, room_y) = rooms[room_y][room_x].update([player_x, player_y], [room_x, room_y]);
+		player.update(key);
+		player = rooms[player.room_y][player.room_x].update(player);
 
 
+		gameplay_window.mvwin(player.room_y * 10, player.room_x * 30);
+		rooms[player.room_y][player.room_x].render(gameplay_window)
+		player.render(gameplay_window);
 
-		rooms[room_y][room_x].render(gameplay_window)
-
-		gameplay_window.addch(player_y, player_x, '0');
-
+		sc.clear();
+		sc.refresh();
 		gameplay_window.refresh();
 
 	curses.curs_set(2);

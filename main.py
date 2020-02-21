@@ -7,14 +7,14 @@ def main(sc):
 	curses.nl();
 
 	gameplay_window = curses.newwin(10, 30, 0, 0);
-	map_window = curses.newwin(5, 4, 0, 120);
+	map_window = curses.newwin(5, 6, 0, 180);
 	gameplay_window.keypad(True);
 	curses.curs_set(0);
 
 
 
 	player = player_.player((14, 4), (0, 0));
-	map = map_.map(5, 4);
+	map = map_.map(5, 6);
 
 
 

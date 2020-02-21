@@ -55,53 +55,54 @@ class map:
 	def render(self, window):
 		for i in range(self.height):
 			for j in range(self.width):
-				doors = self.rooms[i][j].doors;
-				try:
-					if doors[0]:
-						if doors[1]:
-							if doors[2]:
-								if doors[3]:
-									window.addch(i, j, '┼');
+				if self.rooms[i][j].visited:
+					doors = self.rooms[i][j].doors;
+					try:
+						if doors[0]:
+							if doors[1]:
+								if doors[2]:
+									if doors[3]:
+										window.addch(i, j, '┼');
+									else:
+										window.addch(i, j, '├');
 								else:
-									window.addch(i, j, '├');
+									if doors[3]:
+										window.addch(i, j, '┴');
+									else:
+										window.addch(i, j, '╰');
 							else:
-								if doors[3]:
-									window.addch(i, j, '┴');
+								if doors[2]:
+									if doors[3]:
+										window.addch(i, j, '┤');
+									else:
+										window.addch(i, j, '│');
 								else:
-									window.addch(i, j, '╰');
+									if doors[3]:
+										window.addch(i, j, '╯');
+									else:
+										window.addch(i, j, '╵');
 						else:
-							if doors[2]:
-								if doors[3]:
-									window.addch(i, j, '┤');
+							if doors[1]:
+								if doors[2]:
+									if doors[3]:
+										window.addch(i, j, '┬');
+									else:
+										window.addch(i, j, '╭');
 								else:
-									window.addch(i, j, '│');
+									if doors[3]:
+										window.addch(i, j, '─');
+									else:
+										window.addch(i, j, '╶');
 							else:
-								if doors[3]:
-									window.addch(i, j, '╯');
+								if doors[2]:
+									if doors[3]:
+										window.addch(i, j, '╮');
+									else:
+										window.addch(i, j, '╷');
 								else:
-									window.addch(i, j, '╵');
-					else:
-						if doors[1]:
-							if doors[2]:
-								if doors[3]:
-									window.addch(i, j, '┬');
-								else:
-									window.addch(i, j, '╭');
-							else:
-								if doors[3]:
-									window.addch(i, j, '─');
-								else:
-									window.addch(i, j, '╶');
-						else:
-							if doors[2]:
-								if doors[3]:
-									window.addch(i, j, '╮');
-								else:
-									window.addch(i, j, '╷');
-							else:
-								if doors[3]:
-									window.addch(i, j, '╴');
-								else:
-									window.addch(i, j, '·');
-				except:
-					pass;
+									if doors[3]:
+										window.addch(i, j, '╴');
+									else:
+										window.addch(i, j, '·');
+					except:
+						pass;

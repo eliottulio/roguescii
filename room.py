@@ -1,9 +1,11 @@
 class room:
 	def __init__(self, doors):
 		self.closed = False;
+		self.visited = False;
 		self.doors = doors; # Top, Right, Bottom, Left
 
 	def update(self, player):
+		self.visited = True;
 		if (player.x == 0):
 			if not self.doors[3]:
 				player.x = 1;

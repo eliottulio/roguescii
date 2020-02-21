@@ -20,23 +20,7 @@ def main(sc):
 
 	running = True;
 
-	gameplay_window.mvwin(player.room_y * 10, player.room_x * 30);
-	map.rooms[player.room_y][player.room_x].render(gameplay_window)
-	player.render(gameplay_window);
-	map.render(map_window);
-
-	gameplay_window.refresh();
-	map_window.refresh();
-
-	while running:
-		key = gameplay_window.getkey();
-
-		if key == ' ':
-			running = False;
-
-		player.update(key);
-		player = map.rooms[player.room_y][player.room_x].update(player);
-
+	def render_all():
 		gameplay_window.mvwin(player.room_y * 10, player.room_x * 30);
 		map.rooms[player.room_y][player.room_x].render(gameplay_window)
 		player.render(gameplay_window);
@@ -46,6 +30,26 @@ def main(sc):
 		sc.refresh();
 		gameplay_window.refresh();
 		map_window.refresh();
+
+	render_all();
+
+	while running:
+		key = gameplay_window.getkey();
+
+		if key == ' ':
+			gameplay_window.addstr(2, 8, "Do you really");
+			gameplay_window.addstr(3, 5, "want to quit (y/n) ?");
+			gameplay_window.refresh();
+			k = gameplay_window.getkey();
+			if k == 'y':
+				running = False;
+			render_all();
+			continue;
+
+		player.update(key);
+		player = map.rooms[player.room_y][player.room_x].update(player);
+
+		render_all();
 
 	curses.curs_set(2);
 	gameplay_window.keypad(False);

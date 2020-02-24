@@ -16,4 +16,4 @@ class player:
 			self.x -= 1;
 
 	def render(self, window):
-		window.addch(self.y, self.x, '╳');
+		window.addch(self.y, self.x, '🤖');

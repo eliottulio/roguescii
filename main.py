@@ -5,7 +5,6 @@ import map as map_
 
 def main(sc):
 	curses.nl();
-
 	gameplay_window = curses.newwin(10, 30, 0, 0);
 	map_window = curses.newwin(5, 6, 0, 180);
 	gameplay_window.keypad(True);
@@ -24,7 +23,7 @@ def main(sc):
 		gameplay_window.mvwin(player.room_y * 10, player.room_x * 30);
 		map.rooms[player.room_y][player.room_x].render(gameplay_window)
 		player.render(gameplay_window);
-		map.render(map_window);
+		map.render(map_window, player);
 
 		sc.clear();
 		sc.refresh();

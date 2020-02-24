@@ -52,7 +52,7 @@ class map:
 					self.rooms[new_y][new_x].doors[1] = True;
 				current_y, current_x = new_y, new_x;
 
-	def render(self, window):
+	def render(self, window, player):
 		for i in range(self.height):
 			for j in range(self.width):
 				if self.rooms[i][j].visited:
@@ -62,47 +62,47 @@ class map:
 							if doors[1]:
 								if doors[2]:
 									if doors[3]:
-										window.addch(i, j, '┼');
+										window.addch(i, j, '┼' if (player.room_x, player.room_y) != (j, i) else '╋');
 									else:
-										window.addch(i, j, '├');
+										window.addch(i, j, '├' if (player.room_x, player.room_y) != (j, i) else '┣');
 								else:
 									if doors[3]:
-										window.addch(i, j, '┴');
+										window.addch(i, j, '┴' if (player.room_x, player.room_y) != (j, i) else '┻');
 									else:
-										window.addch(i, j, '╰');
+										window.addch(i, j, '╰' if (player.room_x, player.room_y) != (j, i) else '┗');
 							else:
 								if doors[2]:
 									if doors[3]:
-										window.addch(i, j, '┤');
+										window.addch(i, j, '┤' if (player.room_x, player.room_y) != (j, i) else '┫');
 									else:
-										window.addch(i, j, '│');
+										window.addch(i, j, '│' if (player.room_x, player.room_y) != (j, i) else '┃');
 								else:
 									if doors[3]:
-										window.addch(i, j, '╯');
+										window.addch(i, j, '╯' if (player.room_x, player.room_y) != (j, i) else '┛');
 									else:
-										window.addch(i, j, '╵');
+										window.addch(i, j, '╵' if (player.room_x, player.room_y) != (j, i) else '╹');
 						else:
 							if doors[1]:
 								if doors[2]:
 									if doors[3]:
-										window.addch(i, j, '┬');
+										window.addch(i, j, '┬' if (player.room_x, player.room_y) != (j, i) else '┳');
 									else:
-										window.addch(i, j, '╭');
+										window.addch(i, j, '╭' if (player.room_x, player.room_y) != (j, i) else '┏');
 								else:
 									if doors[3]:
-										window.addch(i, j, '─');
+										window.addch(i, j, '─' if (player.room_x, player.room_y) != (j, i) else '━');
 									else:
-										window.addch(i, j, '╶');
+										window.addch(i, j, '╶' if (player.room_x, player.room_y) != (j, i) else '╺');
 							else:
 								if doors[2]:
 									if doors[3]:
-										window.addch(i, j, '╮');
+										window.addch(i, j, '╮' if (player.room_x, player.room_y) != (j, i) else '┓');
 									else:
-										window.addch(i, j, '╷');
+										window.addch(i, j, '╷' if (player.room_x, player.room_y) != (j, i) else '╻');
 								else:
 									if doors[3]:
-										window.addch(i, j, '╴');
+										window.addch(i, j, '╴' if (player.room_x, player.room_y) != (j, i) else '╸');
 									else:
-										window.addch(i, j, '·');
+										window.addch(i, j, '·' if (player.room_x, player.room_y) != (j, i) else '·');
 					except:
 						pass;

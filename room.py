@@ -8,41 +8,41 @@ class room:
 		self.visited = True;
 		if (player.x == 0):
 			if not self.doors[3]:
-				player.x = 1;
+				player.restore_pos();
 			else:
 				if player.y >= 3 and player.y <= 6:
-					player.x = 28;
+					player.x = 27;
 					player.room_x -= 1;
 				else:
-					player.x = 1;
-		elif (player.x == 29):
+					player.restore_pos();
+		elif (player.x == 28):
 			if not self.doors[1]:
-				player.x = 28;
+				player.restore_pos();
 			else:
 				if player.y >= 3 and player.y <= 6:
 					player.x = 1;
 					player.room_x += 1;
 				else:
-					player.x = 28;
+					player.restore_pos();
 
 		if (player.y == 0):
 			if not self.doors[0]:
-				player.y = 1;
+				player.restore_pos();
 			else:
 				if player.x >= 11 and player.x <= 18:
 					player.y = 8;
 					player.room_y -= 1;
 				else:
-					player.y = 1;
+					player.restore_pos();
 		elif (player.y == 9):
 			if not self.doors[2]:
-				player.y = 8;
+				player.restore_pos();
 			else:
 				if player.x >= 11 and player.x <= 18:
 					player.y = 1;
 					player.room_y += 1;
 				else:
-					player.y = 8;
+					player.restore_pos();
 
 		return player;
 

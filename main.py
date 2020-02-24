@@ -24,7 +24,6 @@ def main(sc):
 		player.render(gameplay_window);
 		map.render(map_window, player);
 
-		sc.clear();
 		sc.refresh();
 		gameplay_window.refresh();
 		map_window.refresh();

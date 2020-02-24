@@ -7,7 +7,7 @@ class room:
 
 	def update(self, player):
 		self.visited = True;
-		if (player.x == 0):
+		if (player.x <= 0):
 			if not self.doors[3]:
 				player.restore_pos();
 			else:
@@ -16,7 +16,7 @@ class room:
 					player.room_x -= 1;
 				else:
 					player.restore_pos();
-		elif (player.x == 28):
+		elif (player.x >= 28):
 			if not self.doors[1]:
 				player.restore_pos();
 			else:
@@ -26,7 +26,7 @@ class room:
 				else:
 					player.restore_pos();
 
-		if (player.y == 0):
+		if (player.y <= 0):
 			if not self.doors[0]:
 				player.restore_pos();
 			else:
@@ -35,7 +35,7 @@ class room:
 					player.room_y -= 1;
 				else:
 					player.restore_pos();
-		elif (player.y == 9):
+		elif (player.y >= 9):
 			if not self.doors[2]:
 				player.restore_pos();
 			else:

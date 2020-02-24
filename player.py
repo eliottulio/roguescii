@@ -15,11 +15,11 @@ class player:
 		if key == 'KEY_UP':
 			self.y -= 1;
 		elif key == 'KEY_RIGHT':
-			self.x += 1;
+			self.x += 2;
 		elif key == 'KEY_DOWN':
 			self.y += 1;
 		elif key == 'KEY_LEFT':
-			self.x -= 1;
+			self.x -= 2;
 
 	def get_hit(self, damage):
 		self.hp -= damage;
@@ -28,4 +28,4 @@ class player:
 		self.x, self.y = self.prev_x, self.prev_y;
 
 	def render(self, window):
-		window.addch(self.y, self.x, '0');
+		window.addch(self.y, self.x, '🤖');

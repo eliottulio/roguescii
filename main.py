@@ -1,4 +1,4 @@
-import time, random, curses
+import time, random, curses, locale
 import room
 import player as player_
 import map as map_
@@ -12,7 +12,7 @@ def main(sc):
 
 
 
-	player = player_.player((14, 4), (0, 0));
+	player = player_.player((13, 4), (0, 0));
 	map = map_.map(5, 6);
 
 
@@ -51,6 +51,5 @@ def main(sc):
 	curses.curs_set(2);
 	gameplay_window.keypad(False);
 	curses.nonl();
-
 
 curses.wrapper(main);

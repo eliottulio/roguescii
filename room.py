@@ -1,8 +1,9 @@
 class room:
-	def __init__(self, doors):
+	def __init__(self, doors, ennemies):
 		self.closed = False;
 		self.visited = False;
 		self.doors = doors; # Top, Right, Bottom, Left
+		self.ennemies = ennemies;
 
 	def update(self, player):
 		self.visited = True;
@@ -44,6 +45,22 @@ class room:
 				else:
 					player.restore_pos();
 
+
+		for ennemy in self.ennemies:
+			ennemy.update(player);
+			if (ennemy.prev_x, ennemy.prev_y) == (player.x, player.y):
+				player.restore_pos();
+				ennemy.get_hit(player.damage);
+				if ennemy.hp <= 0:
+					self.ennemies.remove(ennemy);
+					continue;
+			if (ennemy.x, ennemy.y) == (player.x, player.y):
+				ennemy.restore_pos();
+				player.get_hit(ennemy.damage);
+				if player.hp <= 0:
+					exit();
+
+
 		return player;
 
 
@@ -51,6 +68,8 @@ class room:
 	def render(self, window):
 		self.render_base(window);
 		self.render_doors(window);
+		for ennemy in self.ennemies:
+			ennemy.render(window);
 
 	def render_base(self, window):
 

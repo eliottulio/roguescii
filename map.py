@@ -1,5 +1,6 @@
 import random
 import room
+import ennemy
 
 class map:
 	def __init__(self, h, w):
@@ -12,7 +13,7 @@ class map:
 			self.rooms += [[]]
 			for j in range(w):
 				visited_rooms[i] += [False]
-				self.rooms[i] += [room.room([False, False, False, False])]
+				self.rooms[i] += [room.room([False, False, False, False], [])]
 
 		stack = [];
 		current_x = 0

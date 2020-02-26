@@ -6,7 +6,7 @@ class player:
 		self.y = pos[1];
 		self.room_x = room_pos[0];
 		self.room_y = room_pos[1];
-		self.hp = 1;
+		self.hp = 8;
 		self.damage = 1;
 
 	def update(self, key):
@@ -27,5 +27,6 @@ class player:
 	def restore_pos(self):
 		self.x, self.y = self.prev_x, self.prev_y;
 
-	def render(self, window):
+	def render(self, window, stats_window):
 		window.addch(self.y, self.x, '🤖');
+		stats_window.addstr(0, 0, '❤️ ' * (self.hp // 2) + '💔' * (self.hp % 2));

@@ -8,6 +8,7 @@ class ennemy:
 		self.pattern = pattern;
 		self.hp = hp;
 		self.damage = damage;
+		self.current_frame = 0;
 
 	def update(self, player):
 		self.prev_x, self.prev_y = self.x, self.y;

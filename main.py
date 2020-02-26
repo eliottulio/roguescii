@@ -1,4 +1,4 @@
-import time, random, curses, locale
+import time, random, curses
 import room
 import player as player_
 import map as map_

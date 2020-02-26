@@ -5,10 +5,14 @@ class room:
 		self.doors = doors; # Top, Right, Bottom, Left
 		self.ennemies = ennemies;
 
+	def is_open(self):
+		return not self.closed and len(self.ennemies) == 0;
+
 	def update(self, player):
 		self.visited = True;
-		if (player.x <= 0):
-			if not self.doors[3]:
+
+		if player.x <= 0:
+			if not self.doors[3] or not self.is_open():
 				player.restore_pos();
 			else:
 				if player.y >= 3 and player.y <= 6:
@@ -16,8 +20,8 @@ class room:
 					player.room_x -= 1;
 				else:
 					player.restore_pos();
-		elif (player.x >= 28):
-			if not self.doors[1]:
+		elif player.x >= 28:
+			if not self.doors[1] or not self.is_open():
 				player.restore_pos();
 			else:
 				if player.y >= 3 and player.y <= 6:
@@ -26,8 +30,8 @@ class room:
 				else:
 					player.restore_pos();
 
-		if (player.y <= 0):
-			if not self.doors[0]:
+		if player.y <= 0 :
+			if not self.doors[0]or not self.is_open():
 				player.restore_pos();
 			else:
 				if player.x >= 11 and player.x <= 18:
@@ -35,8 +39,8 @@ class room:
 					player.room_y -= 1;
 				else:
 					player.restore_pos();
-		elif (player.y >= 9):
-			if not self.doors[2]:
+		elif player.y >= 9:
+			if not self.doors[2] or not self.is_open():
 				player.restore_pos();
 			else:
 				if player.x >= 11 and player.x <= 18:
@@ -82,7 +86,7 @@ class room:
 			pass;
 
 	def render_doors(self, window):
-		if self.closed:
+		if not self.is_open():
 			return;
 
 		if self.doors[0]:

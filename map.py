@@ -1,6 +1,6 @@
-import random
+import random, copy
 import room
-import ennemy
+import ennemy, data_bank
 
 class map:
 	def __init__(self, h, w):
@@ -13,7 +13,10 @@ class map:
 			self.rooms += [[]]
 			for j in range(w):
 				visited_rooms[i] += [False]
-				self.rooms[i] += [room.room([False, False, False, False], [])]
+				ennemies = [copy.deepcopy(data_bank.ennemies['poop'])];
+				for ennemy in ennemies:
+					ennemy.x, ennemy.y = random.randint(1, 12) * 2 + 1, random.randint(2, 7);
+				self.rooms[i] += [room.room([False, False, False, False], ennemies)]
 
 		stack = [];
 		current_x = 0

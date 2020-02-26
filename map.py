@@ -13,10 +13,7 @@ class map:
 			self.rooms += [[]]
 			for j in range(w):
 				visited_rooms[i] += [False]
-				ennemies = [copy.deepcopy(data_bank.ennemies['poop'])];
-				for ennemy in ennemies:
-					ennemy.x, ennemy.y = random.randint(1, 12) * 2 + 1, random.randint(2, 7);
-				self.rooms[i] += [room.room([False, False, False, False], ennemies)]
+				self.rooms[i] += [room.room([False, False, False, False], [])]
 
 		stack = [];
 		current_x = 0
@@ -55,6 +52,9 @@ class map:
 					self.rooms[current_y][current_x].doors[3] = True;
 					self.rooms[new_y][new_x].doors[1] = True;
 				current_y, current_x = new_y, new_x;
+		for row in self.rooms:
+			for i in range(len(row)):
+				row[i] = copy.deepcopy(random.choice(data_bank.rooms[tuple(row[i].doors)]));
 
 	def render(self, window, player):
 		for i in range(self.height):

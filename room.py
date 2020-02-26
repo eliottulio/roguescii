@@ -1,3 +1,5 @@
+import curses;
+
 class room:
 	def __init__(self, doors, ennemies):
 		self.closed = False;
@@ -50,13 +52,14 @@ class room:
 					player.restore_pos();
 
 
-		for ennemy in self.ennemies:
+		for ennemy in self.ennemies[::-1]:
 			ennemy.update(player);
 			if (ennemy.prev_x, ennemy.prev_y) == (player.x, player.y):
 				player.restore_pos();
 				ennemy.get_hit(player.damage);
 				if ennemy.hp <= 0:
 					self.ennemies.remove(ennemy);
+					curses.beep();
 					continue;
 			if (ennemy.x, ennemy.y) == (player.x, player.y):
 				ennemy.restore_pos();

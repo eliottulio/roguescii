@@ -11,7 +11,7 @@ def alien_ai(player, self):
 	self.current_frame = (self.current_frame + 1) % 4;
 
 def mouthless_ai(player, self):
-	pause_count = 2;
+	pause_count = 0;
 	if self.current_frame == 0:
 		self.appearence = '😶';
 		x = player.x - self.x;
@@ -59,7 +59,7 @@ room.room((False, False, False, True), [ennemies['skull'](27, 1), ennemies['skul
 
 (False, False, True, False):
 [
-room.room((False, False, True, False), [ennemies['mouthless'](27, 1), ennemies['mouthless'](1, 1)])
+room.room((False, False, True, False), [ennemies['genie'](27, 1), ennemies['mouthless'](1, 1)])
 ],
 
 (False, False, True, True):
@@ -69,7 +69,7 @@ room.room((False, False, True, True), [ennemies['skull'](27, 1)])
 
 (False, True, False, False):
 [
-room.room((False, True, False, False), [ennemies['mouthless'](1, 1), ennemies['mouthless'](1, 8)])
+room.room((False, True, False, False), [ennemies['mouthless'](1, 1), ennemies['genie'](1, 8)])
 ],
 
 (False, True, False, True):

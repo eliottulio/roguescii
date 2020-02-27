@@ -13,16 +13,14 @@ def alien_ai(player, self):
 def mouthless_ai(player, self):
 	pause_count = 2;
 	if self.current_frame == 0:
-		self.appearence = '😐';
-		x = player.prev_x - self.x;
-		y = player.prev_y - self.y;
+		self.appearence = '😶';
+		x = player.x - self.x;
+		y = player.y - self.y;
 		if abs(x) > abs(y):
 			self.x += int(x / abs(x)) * 2;
 		else:
-			self.y += int(y / abs(y));
-	elif self.current_frame <= pause_count:
-		self.appearence = '😶';
-	else:
+			self.y += int(y / abs(y)) if y != 0 else 0;
+	elif self.current_frame == pause_count + 1:
 		self.appearence = '😡';
 	self.current_frame = (self.current_frame + 1) % (pause_count + 2);
 

@@ -6,8 +6,8 @@ import map as map_
 def main(sc):
 	curses.nl();
 	gameplay_window = curses.newwin(10, 30, 0, 0);
-	map_window = curses.newwin(10, 10, 0, 35);
-	stats_window = curses.newwin(5, 10, 0, 35);
+	map_window = curses.newwin(5, 10, 0, 35);
+	stats_window = curses.newwin(5, 10, 5, 35);
 	gameplay_window.keypad(True);
 	curses.curs_set(0);
 

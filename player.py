@@ -28,5 +28,5 @@ class player:
 		self.x, self.y = self.prev_x, self.prev_y;
 
 	def render(self, window, stats_window):
-		window.addch(self.y, self.x, '🤖');
-		stats_window.addstr(0, 0, '❤️ ' * (self.hp // 2) + '💔' * (self.hp % 2));
+		window.addstr(self.y, self.x, '°°');
+		stats_window.addstr(0, 0, '<3' * (self.hp // 2) + '-3' * (self.hp % 2));

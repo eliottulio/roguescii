@@ -13,7 +13,7 @@ def alien_ai(player, self):
 def mouthless_ai(player, self):
 	pause_count = 0;
 	if self.current_frame == 0:
-		self.appearence = '😶';
+		self.appearence = '¤¤';
 		x = player.x - self.x;
 		y = player.y - self.y;
 		if abs(x) > abs(y):
@@ -21,14 +21,14 @@ def mouthless_ai(player, self):
 		else:
 			self.y += int(y / abs(y)) if y != 0 else 0;
 	elif self.current_frame == pause_count + 1:
-		self.appearence = '😡';
+		self.appearence = '**';
 	self.current_frame = (self.current_frame + 1) % (pause_count + 2);
 
 def genie_ai(player, self):
 	if self.current_frame == 0:
 		dist2 = (self.x / 2 - (player.x / 2)) ** 2 + (self.y - player.y) ** 2;
 		if dist2 < 8:
-			self.appearence = '💭';
+			self.appearence = '%%';
 			self.next_x = player.x if player.x != self.x else player.prev_x;
 			self.next_y = player.y if player.y != self.y else player.prev_y;
 			self.current_frame = 1;
@@ -37,15 +37,14 @@ def genie_ai(player, self):
 		self.prev_y = self.y;
 		self.x = self.next_x;
 		self.y = self.next_y;
-		self.appearence = '🧞';
+		self.appearence = '§§';
 		self.current_frame = 0;
 
-# 🧞
 ennemies = {
-'skull': 		lambda x, y: ennemy.ennemy('💀', (x, y), 1, 50, skull_ai),
-'alien': 		lambda x, y: ennemy.ennemy('👾', (x, y), 2, 1, alien_ai),
-'mouthless': 	lambda x, y: ennemy.ennemy('😶', (x, y), 1, 1, mouthless_ai),
-'genie': 		lambda x, y: ennemy.ennemy('🧞', (x, y), 2, 2, genie_ai)
+'skull': 		lambda x, y: ennemy.ennemy('00', (x, y), 1, 50, skull_ai),
+'alien': 		lambda x, y: ennemy.ennemy(')(', (x, y), 2, 1, alien_ai),
+'mouthless': 	lambda x, y: ennemy.ennemy('¤¤', (x, y), 1, 1, mouthless_ai),
+'genie': 		lambda x, y: ennemy.ennemy('§§', (x, y), 2, 2, genie_ai)
 }
 
 

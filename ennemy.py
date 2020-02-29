@@ -21,4 +21,4 @@ class ennemy:
 		self.hp -= damage;
 
 	def render(self, window):
-		window.addch(self.y, self.x, self.appearence);
+		window.addstr(self.y, self.x, self.appearence);

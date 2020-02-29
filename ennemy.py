@@ -13,7 +13,7 @@ class ennemy:
 
 	def update(self, player):
 		self.prev_x, self.prev_y = self.x, self.y;
-		self = self.pattern(player, self);
+		self.pattern(player, self);
 		#DIRECTION
 		dx = (self.x-self.prev_x)/2
 		dy = self.y-self.prev_y

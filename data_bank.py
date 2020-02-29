@@ -33,8 +33,6 @@ def genie_ai(player, self):
 			self.next_y = player.y if player.y != self.y else player.prev_y;
 			self.current_frame = 1;
 	else:
-		self.prev_x = self.x;
-		self.prev_y = self.y;
 		self.x = self.next_x;
 		self.y = self.next_y;
 		self.appearence = '§§';

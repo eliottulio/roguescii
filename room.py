@@ -59,6 +59,8 @@ class room:
 					break;
 				if (ennemy.x, ennemy.y) == (ennemy2.x, ennemy2.y):
 					ennemy.restore_pos();
+			if ennemy.x <= 0 or ennemy.x >= 29 or ennemy.y <= 0 or ennemy.y >= 9:
+				ennemy.restore_pos();
 			if (ennemy.prev_x, ennemy.prev_y) == (player.x, player.y):
 				player.restore_pos();
 				ennemy.get_hit(player.damage);

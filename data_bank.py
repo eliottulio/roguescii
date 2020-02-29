@@ -53,12 +53,13 @@ ennemies = {
 rooms = {
 (False, False, False, True):
 [
-room.room((False, False, False, True), [ennemies['skull'](27, 1), ennemies['skull'](27, 8)])
+room.room((False, False, False, True), [ennemies['genie'](5, 1), ennemies['mouthless'](7, 1), ennemies['genie'](9, 1),
+										ennemies['genie'](5, 8), ennemies['mouthless'](7, 8), ennemies['genie'](9, 8)])
 ],
 
 (False, False, True, False):
 [
-room.room((False, False, True, False), [ennemies['genie'](27, 1), ennemies['mouthless'](1, 1)])
+room.room((False, False, True, False), [ennemies['genie'](27, 1), ennemies['mouthless'](1, 1), ennemies['alien'](27, 8)])
 ],
 
 (False, False, True, True):
@@ -68,7 +69,7 @@ room.room((False, False, True, True), [ennemies['skull'](27, 1)])
 
 (False, True, False, False):
 [
-room.room((False, True, False, False), [ennemies['mouthless'](1, 1), ennemies['genie'](1, 8)])
+room.room((False, True, False, False), [ennemies['mouthless'](1, 1), ennemies['genie'](1, 8), ennemies['alien'](27, 1)])
 ],
 
 (False, True, False, True):
@@ -88,7 +89,7 @@ room.room((False, True, True, True), [ennemies['skull'](13, 1)])
 
 (True, False, False, False):
 [
-room.room((True, False, False, False), [ennemies['skull'](1, 8), ennemies['skull'](27, 8)])
+room.room((True, False, False, False), [ennemies['genie'](1, 8), ennemies['mouthless'](27, 8)])
 ],
 
 (True, False, False, True):

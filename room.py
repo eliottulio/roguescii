@@ -53,6 +53,15 @@ class room:
 
 
 		for ennemy in self.ennemies[::-1]:
+			if (ennemy.x, ennemy.y) == (player.x, player.y):
+				player.restore_pos();
+				ennemy.get_hit(player.damage);
+				if ennemy.hp <= 0:
+					self.ennemies.remove(ennemy);
+					curses.beep();
+					continue;
+
+		for ennemy in self.ennemies[::-1]:
 			ennemy.update(player);
 			for ennemy2 in self.ennemies[::-1]:
 				if ennemy is ennemy2:
@@ -61,13 +70,6 @@ class room:
 					ennemy.restore_pos();
 			if ennemy.x <= 0 or ennemy.x >= 29 or ennemy.y <= 0 or ennemy.y >= 9:
 				ennemy.restore_pos();
-			if (ennemy.prev_x, ennemy.prev_y) == (player.x, player.y):
-				player.restore_pos();
-				ennemy.get_hit(player.damage);
-				if ennemy.hp <= 0:
-					self.ennemies.remove(ennemy);
-					curses.beep();
-					continue;
 			if (ennemy.x, ennemy.y) == (player.x, player.y):
 				ennemy.restore_pos();
 				player.get_hit(ennemy.damage);

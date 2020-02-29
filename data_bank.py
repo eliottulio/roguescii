@@ -55,8 +55,8 @@ def backstabber_ai(player, self):
 	elif self.current_frame == 1:
 		dx = self.x - player.x
 		dy = self.y - player.y
-		self.x -= dx/abs(dx)*2 if dx != 0 else 0
-		self.y -= dy/abs(dy) if dy != 0 else 0
+		self.x -= dx//abs(dx)*2 if dx != 0 else 0
+		self.y -= dy//abs(dy) if dy != 0 else 0
 		self.current_frame += 1
 	elif self.current_frame == 2:
 		self.x = player.x - (player.x-player.prev_x)

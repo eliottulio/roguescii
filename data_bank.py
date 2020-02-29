@@ -91,7 +91,7 @@ room.room((False, False, False, True), [ennemies['genie'](5, 1), ennemies['mouth
 
 (False, False, True, False):
 [
-room.room((False, False, True, False), [ennemies['genie'](27, 1), ennemies['mouthless'](1, 1), ennemies['alien'](27, 8)])
+room.room((False, False, True, False), [ennemies['backstabber'](27, 1), ennemies['mouthless'](1, 1), ennemies['alien'](27, 8)])
 ],
 
 (False, False, True, True):

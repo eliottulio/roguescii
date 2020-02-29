@@ -59,16 +59,26 @@ def backstabber_ai(player, self):
 		self.y -= dy//abs(dy) if dy != 0 else 0
 		self.current_frame += 1
 	elif self.current_frame == 2:
-		self.x = player.x - (player.x-player.prev_x)
-		self.y = player.y - (player.y-player.prev_y)
+		if player.dir == 'N':
+			self.x = player.x;
+			self.y = player.y + 1;
+		elif player.dir == 'S':
+			self.x = player.x;
+			self.y = player.y - 1;
+		elif player.dir == 'E':
+			self.x = player.x - 2;
+			self.y = player.y;
+		elif player.dir == 'W':
+			self.x = player.x + 2;
+			self.y = player.y;
 		self.current_frame += 1
 	elif self.current_frame == 3:
 		if self.x == player.x or self.y == player.y:
-			self.x == player.x
-			self.y == player.y
+			self.x = player.x
+			self.y = player.y
 		else:
-			self.x = player.x - (player.x-player.prev_x)
-			self.y = player.y - (player.y-player.prev_y)
+			self.x = player.prev_x
+			self.y = player.prev_y
 		self.current_frame -= 1
 
 ennemies = {
@@ -76,7 +86,7 @@ ennemies = {
 'alien': 		lambda x, y: ennemy.ennemy(')(', (x, y), 2, 1, alien_ai),
 'mouthless': 	lambda x, y: ennemy.ennemy('¤¤', (x, y), 1, 1, mouthless_ai),
 'genie': 		lambda x, y: ennemy.ennemy('§§', (x, y), 2, 2, genie_ai),
-'backstabber':	lambda x, y: ennemy.ennemy('FℲ', (x, y), 3, 4, backstabber_ai)
+'backstabber':	lambda x, y: ennemy.ennemy('FℲ', (x, y), 3, 3, backstabber_ai)
 }
 
 

@@ -76,7 +76,7 @@ ennemies = {
 'alien': 		lambda x, y: ennemy.ennemy(')(', (x, y), 2, 1, alien_ai),
 'mouthless': 	lambda x, y: ennemy.ennemy('¤¤', (x, y), 1, 1, mouthless_ai),
 'genie': 		lambda x, y: ennemy.ennemy('§§', (x, y), 2, 2, genie_ai),
-'backstabber':	lambda x, y: ennemy.ennemy('', (x, y), 1, 4, backstabber_ai)
+'backstabber':	lambda x, y: ennemy.ennemy('FℲ', (x, y), 1, 4, backstabber_ai)
 }
 
 

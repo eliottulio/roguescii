@@ -57,8 +57,8 @@ class room:
 			for ennemy2 in self.ennemies[::-1]:
 				if ennemy is ennemy2:
 					break;
-				if ennemy.x, ennemy.y == ennemy2.x, ennemy2.y:
-					ennemy.x, ennemy.y = ennemy.prev_x, ennemy.prev_y;
+				if (ennemy.x, ennemy.y) == (ennemy2.x, ennemy2.y):
+					ennemy.restore_pos();
 			if (ennemy.prev_x, ennemy.prev_y) == (player.x, player.y):
 				player.restore_pos();
 				ennemy.get_hit(player.damage);

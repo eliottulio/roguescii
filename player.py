@@ -29,4 +29,4 @@ class player:
 
 	def render(self, window, stats_window):
 		window.addstr(self.y, self.x, '°°');
-		stats_window.addstr(0, 0, '<3' * (self.hp // 2) + '-3' * (self.hp % 2));
+		stats_window.addstr('<3' * (self.hp // 2) + '-3' * (self.hp % 2));

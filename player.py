@@ -4,6 +4,7 @@ class player:
 		self.prev_y = pos[1];
 		self.x = pos[0];
 		self.y = pos[1];
+		self.dir = 'E'
 		self.room_x = room_pos[0];
 		self.room_y = room_pos[1];
 		self.hp = 8;
@@ -20,6 +21,18 @@ class player:
 			self.y += 1;
 		elif key == 'KEY_LEFT':
 			self.x -= 2;
+		#DIRECTION
+		dx = self.x-self.prev_x
+		dy = self.y-self.prev_y
+		if dx == 2:
+			self.dir = 'E'
+		elif dx == -2:
+			self.dir = 'W'
+		elif dy == 1:
+			self.dir = 'S'
+		elif dy == -1:
+			self.dir = 'N'
+			
 
 	def get_hit(self, damage):
 		self.hp -= damage;

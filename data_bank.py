@@ -111,7 +111,7 @@ def ogre_ai(player, self):
 		else:
 			dx = self.x - player.x
 			dy = self.y - player.y
-			self.x -= dx//abs(dx)*2 if (dx != 0 and dy < dx/2) else 0
+			self.x -= dx//abs(dx)*2 if (dx != 0 and dy <= dx/2) else 0
 			self.y -= dy//abs(dy) if (dy != 0 and dx < dy*2) else 0
 		if self.current_frame + 1 < 9:
 			self.current_frame += 1

@@ -9,18 +9,27 @@ class player:
 		self.room_y = room_pos[1];
 		self.hp = 8;
 		self.damage = 1;
+		self.speed = 2;
 
 	def update(self, key):
 		self.prev_x = self.x;
 		self.prev_y = self.y;
 		if key == 'KEY_UP':
-			self.y -= 1;
+			if self.y <= self.speed:
+				self.y = 1;
+			else:self.y -= self.speed;
 		elif key == 'KEY_RIGHT':
-			self.x += 2;
+			if self.x >= 27-2*self.speed:
+				self.x = 27;
+			else:self.x += 2*self.speed;
 		elif key == 'KEY_DOWN':
-			self.y += 1;
+			if self.y >= 8-self.speed:
+				self.y = 8;
+			else:self.y += self.speed;
 		elif key == 'KEY_LEFT':
-			self.x -= 2;
+			if self.x <= 2*self.speed:
+				self.x = 1;
+			else:self.x -= 2*self.speed;
 		#DIRECTION
 		dx = self.x-self.prev_x
 		dy = self.y-self.prev_y
@@ -32,7 +41,7 @@ class player:
 			self.dir = 'S'
 		elif dy == -1:
 			self.dir = 'N'
-			
+
 
 	def get_hit(self, damage):
 		self.hp -= damage;

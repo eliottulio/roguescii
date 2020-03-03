@@ -1,11 +1,11 @@
 class ennemy:
-	def __init__(self, appearence, pos, hp, damage, pattern):
+	def __init__(self, appearance, pos, hp, damage, pattern):
 		self.prev_x = pos[0];
 		self.prev_y = pos[1];
 		self.x = pos[0];
 		self.y = pos[1];
 		self.dir = 'E'
-		self.appearence = appearence;
+		self.appearance = appearance;
 		self.pattern = pattern;
 		self.hp = hp;
 		self.damage = damage;
@@ -35,4 +35,4 @@ class ennemy:
 		self.hp -= damage;
 
 	def render(self, window):
-		window.addstr(self.y, self.x, self.appearence);
+		window.addstr(self.y, self.x, self.appearance);

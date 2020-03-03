@@ -13,7 +13,7 @@ def alien_ai(player, self):
 def mouthless_ai(player, self):
 	pause_count = 0;
 	if self.current_frame == 0:
-		self.appearence = '¤¤';
+		self.appearance = '¤¤';
 		x = player.x - self.x;
 		y = player.y - self.y;
 		if abs(x) > abs(y):
@@ -21,21 +21,21 @@ def mouthless_ai(player, self):
 		else:
 			self.y += int(y / abs(y)) if y != 0 else 0;
 	elif self.current_frame == pause_count + 1:
-		self.appearence = '**';
+		self.appearance = '**';
 	self.current_frame = (self.current_frame + 1) % (pause_count + 2);
 
 def genie_ai(player, self):
 	if self.current_frame == 0:
 		dist2 = (self.x / 2 - (player.x / 2)) ** 2 + (self.y - player.y) ** 2;
 		if dist2 < 8:
-			self.appearence = '%%';
+			self.appearance = '%%';
 			self.next_x = player.x if player.x != self.x else player.prev_x;
 			self.next_y = player.y if player.y != self.y else player.prev_y;
 			self.current_frame = 1;
 	else:
 		self.x = self.next_x;
 		self.y = self.next_y;
-		self.appearence = '§§';
+		self.appearance = '§§';
 		self.current_frame = 0;
 
 def backstabber_ai(player, self):
@@ -81,12 +81,51 @@ def backstabber_ai(player, self):
 			self.y = player.prev_y
 		self.current_frame -= 1
 
+def ogre_ai(player, self):
+	if 0 <= self.current_frame < 4:
+		self.appearance = '||'
+		if self.current_frame == 3:
+			self.appearance = ']['
+		self.current_frame += 1
+
+	elif self.current_frame == 4:
+		dx = self.x - player.x
+		dy = self.y - player.y
+		self.x -= dx//abs(dx)*2 if dx != 0 else 0
+		self.y -= dy//abs(dy) if dy != 0 else 0
+		dx = (self.x - player.x)/2
+		dy = self.y - player.y
+		if (dx**2+dy**2)**.5 <= 2:
+			self.appearance = '{}'
+			self.current_frame += 1
+		else:self.appearance = ']['
+
+	elif 4 < self.current_frame < 9:
+		dx = abs((self.x - player.x)/2)
+		dy = abs(self.y - player.y)
+		if (dx == 0 and dy <= 2) or (dy == 0 and dx <= 2):
+			self.x = player.x
+			self.y = player.y
+			self.current_frame = 0
+			self.appearance = '||'
+		else:
+			dx = self.x - player.x
+			dy = self.y - player.y
+			self.x -= dx//abs(dx)*2 if (dx != 0 and dy < dx/2) else 0
+			self.y -= dy//abs(dy) if (dy != 0 and dx < dy*2) else 0
+		if self.current_frame + 1 < 9:
+			self.current_frame += 1
+		else:
+			self.current_frame = 0
+			self.appearance = '||'
+
 ennemies = {
 'skull': 		lambda x, y: ennemy.ennemy('00', (x, y), 1, 50, skull_ai),
 'alien': 		lambda x, y: ennemy.ennemy(')(', (x, y), 2, 1, alien_ai),
 'mouthless': 	lambda x, y: ennemy.ennemy('¤¤', (x, y), 1, 1, mouthless_ai),
 'genie': 		lambda x, y: ennemy.ennemy('§§', (x, y), 2, 2, genie_ai),
-'backstabber':	lambda x, y: ennemy.ennemy('FℲ', (x, y), 3, 3, backstabber_ai)
+'backstabber':	lambda x, y: ennemy.ennemy('FℲ', (x, y), 3, 3, backstabber_ai),
+'ogre':			lambda x, y: ennemy.ennemy('||', (x, y), 4, 2, ogre_ai)
 }
 
 
@@ -101,7 +140,7 @@ room.room((False, False, False, True), [ennemies['genie'](5, 1), ennemies['mouth
 
 (False, False, True, False):
 [
-room.room((False, False, True, False), [ennemies['backstabber'](27, 1), ennemies['mouthless'](1, 1), ennemies['alien'](27, 8)])
+room.room((False, False, True, False), [ennemies['ogre'](27, 1), ennemies['mouthless'](1, 1), ennemies['alien'](27, 8)])
 ],
 
 (False, False, True, True):

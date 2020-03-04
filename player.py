@@ -9,7 +9,7 @@ class player:
 		self.room_y = room_pos[1];
 		self.hp = 8;
 		self.damage = 1;
-		self.speed = 4;
+		self.speed = 1;
 
 	def update(self, key):
 		self.prev_x = self.x;

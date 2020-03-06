@@ -82,13 +82,13 @@ def backstabber_ai(player, self):
 		self.current_frame -= 1
 
 def ogre_ai(player, self):
-	if 0 <= self.current_frame < 4:
+	if 0 <= self.current_frame < 3:
 		self.appearance = '||'
-		if self.current_frame == 3:
+		if self.current_frame == 2:
 			self.appearance = ']['
 		self.current_frame += 1
 
-	elif self.current_frame == 4:
+	elif self.current_frame == 3:
 		dx = self.x - player.x
 		dy = self.y - player.y
 		self.x -= dx//abs(dx)*2 if dx != 0 else 0
@@ -100,7 +100,7 @@ def ogre_ai(player, self):
 			self.current_frame += 1
 		else:self.appearance = ']['
 
-	elif 4 < self.current_frame < 9:
+	elif 3 < self.current_frame < 8:
 		dx = abs((self.x - player.x)/2)
 		dy = abs(self.y - player.y)
 		if (dx == 0 and dy <= 2) or (dy == 0 and dx <= 2):
@@ -111,9 +111,9 @@ def ogre_ai(player, self):
 		else:
 			dx = self.x - player.x
 			dy = self.y - player.y
-			self.x -= dx//abs(dx)*2 if (dx != 0 and dy <= dx/2) else 0
-			self.y -= dy//abs(dy) if (dy != 0 and dx < dy*2) else 0
-		if self.current_frame + 1 < 9:
+			self.x -= dx//abs(dx)*2 if (dx != 0 and abs(dy) <= abs(dx/2)) else 0
+			self.y -= dy//abs(dy) if (dy != 0 and abs(dx) < abs(dy*2)) else 0
+		if self.current_frame + 1 < 8:
 			self.current_frame += 1
 		else:
 			self.current_frame = 0

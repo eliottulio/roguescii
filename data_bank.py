@@ -11,18 +11,16 @@ def alien_ai(player, self):
 	self.current_frame = (self.current_frame + 1) % 4;
 
 def mouthless_ai(player, self):
-	pause_count = 0;
 	if self.current_frame == 0:
-		self.appearance = '¤¤';
-		x = player.x - self.x;
-		y = player.y - self.y;
-		if abs(x) > abs(y):
-			self.x += int(x / abs(x)) * 2;
-		else:
-			self.y += int(y / abs(y)) if y != 0 else 0;
-	elif self.current_frame == pause_count + 1:
-		self.appearance = '**';
-	self.current_frame = (self.current_frame + 1) % (pause_count + 2);
+		dx = self.x - player.x;
+		dy = self.y - player.y;
+		self.x -= dx//abs(dx)*2 if (dx != 0 and abs(dy) <= abs(dx/2)) else 0
+		self.y -= dy//abs(dy) if (dy != 0 and abs(dx) < abs(dy*2)) else 0
+		self.appearance = '¤¤'
+		self.current_frame = 1
+	else:
+		self.appearance = '**'
+		self.current_frame = 0
 
 def genie_ai(player, self):
 	if self.current_frame == 0:

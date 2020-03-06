@@ -13,6 +13,7 @@ class room:
 	def update(self, player):
 		self.visited = True;
 
+		# CHANGING ROOMS : LEFT
 		if player.x <= 0:
 			if not self.doors[3] or not self.is_open():
 				player.restore_pos();
@@ -22,6 +23,8 @@ class room:
 					player.room_x -= 1;
 				else:
 					player.restore_pos();
+
+		# CHANGING ROOMS : RIGHT
 		elif player.x >= 28:
 			if not self.doors[1] or not self.is_open():
 				player.restore_pos();
@@ -32,6 +35,7 @@ class room:
 				else:
 					player.restore_pos();
 
+		# CHANGING ROOMS : DOWN
 		if player.y <= 0 :
 			if not self.doors[0]or not self.is_open():
 				player.restore_pos();
@@ -41,6 +45,8 @@ class room:
 					player.room_y -= 1;
 				else:
 					player.restore_pos();
+
+		# CHANGING ROOMS : UP
 		elif player.y >= 9:
 			if not self.doors[2] or not self.is_open():
 				player.restore_pos();
@@ -51,7 +57,7 @@ class room:
 				else:
 					player.restore_pos();
 
-
+		# UPDATING PLAYER HITTING ENNEMIES
 		for ennemy in self.ennemies[::-1]:
 			if (ennemy.x, ennemy.y) == (player.x, player.y):
 				player.restore_pos();
@@ -60,13 +66,13 @@ class room:
 					self.ennemies.remove(ennemy);
 					curses.beep();
 					continue;
-
+		# UPDATING ENNEMIES HITTING PLAYER AND ENNEMY COLLISION
 		for ennemy in self.ennemies[::-1]:
 			ennemy.update(player);
 			for ennemy2 in self.ennemies[::-1]:
 				if ennemy is ennemy2:
-					break;
-				if (ennemy.x, ennemy.y) == (ennemy2.x, ennemy2.y):
+					pass;
+				elif (ennemy.x, ennemy.y) == (ennemy2.x, ennemy2.y):
 					ennemy.restore_pos();
 			if ennemy.x <= 0 or ennemy.x >= 29 or ennemy.y <= 0 or ennemy.y >= 9:
 				ennemy.restore_pos();

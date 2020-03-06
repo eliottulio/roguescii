@@ -11,6 +11,9 @@ class ennemy:
 		self.damage = damage;
 		self.current_frame = 0;
 
+	def __repr__(self):
+		return f'{self.appearance} ; {self.x,self.y} ; {self.pattern}'
+
 	def update(self, player):
 		self.prev_x, self.prev_y = self.x, self.y;
 		self.pattern(player, self);

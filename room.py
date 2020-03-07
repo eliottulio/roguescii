@@ -6,6 +6,7 @@ class room:
 		self.visited = False;
 		self.doors = doors; # Top, Right, Bottom, Left
 		self.ennemies = ennemies;
+		self.cells_pointed_at = [];
 
 	def is_open(self):
 		return not self.closed and len(self.ennemies) == 0;
@@ -92,6 +93,9 @@ class room:
 		self.render_doors(window);
 		for ennemy in self.ennemies:
 			ennemy.render(window);
+		for i, j in self.cells_pointed_at:
+			window.chgat(j, i, 2, curses.color_pair(1));
+		self.cells_pointed_at = [];
 
 	def render_base(self, window):
 

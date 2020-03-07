@@ -1,3 +1,4 @@
+import math
 class player:
 	def __init__(self, pos, room_pos):
 		self.prev_x = pos[0];
@@ -7,7 +8,9 @@ class player:
 		self.dir = 'E'
 		self.room_x = room_pos[0];
 		self.room_y = room_pos[1];
-		self.hp = 8;
+		self.hp = 10;
+		self.hp_max = 0;
+		self.armor = 20;
 		self.damage = 1;
 		self.speed = 1;
 
@@ -60,6 +63,7 @@ class player:
 
 
 	def get_hit(self, damage):
+		damage = math.ceil(damage * (1-self.armor/25));
 		self.hp -= damage;
 
 	def restore_pos(self):

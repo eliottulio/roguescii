@@ -23,8 +23,9 @@ def main(sc):
 
 	def render_all():
 		stats_window.clear();
-		map.rooms[player.room_y][player.room_x].render(gameplay_window)
+		gameplay_window.clear();
 		player.render(gameplay_window, stats_window);
+		map.rooms[player.room_y][player.room_x].render(gameplay_window)
 		map.render(map_window, player);
 
 		sc.refresh();

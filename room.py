@@ -8,6 +8,9 @@ class room:
 		self.ennemies = ennemies;
 		self.cells_pointed_at = [];
 
+	def signal(self, x, y):
+		self.cells_pointed_at.append((x, y));
+
 	def is_open(self):
 		return not self.closed and len(self.ennemies) == 0;
 

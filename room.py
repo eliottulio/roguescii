@@ -6,14 +6,11 @@ class room:
 		self.visited = False;
 		self.doors = doors; # Top, Right, Bottom, Left
 		self.ennemies = ennemies;
-<<<<<<< HEAD
 		self.items = items;
-=======
 		self.cells_pointed_at = [];
 
 	def signal(self, x, y):
 		self.cells_pointed_at += [(x, y)];
->>>>>>> 3c00f61b3d9b2e9bb1f01f3bb775a8f61c02f8e1
 
 	def is_open(self):
 		return not self.closed and len(self.ennemies) == 0;
@@ -100,19 +97,17 @@ class room:
 
 
 
-	def render(self, window):
+	def render(self, window, player):
 		self.render_base(window);
 		self.render_doors(window);
+		for item in self.items:
+			if (item.x, item.y) != (player.x, player.y):
+				item.render(window);
 		for ennemy in self.ennemies:
 			ennemy.render(window);
-<<<<<<< HEAD
-		for item in self.items:
-			item.render(window);
-=======
 		for i, j in self.cells_pointed_at:
 			window.chgat(j, i, 2, curses.color_pair(1));
 		self.cells_pointed_at = [];
->>>>>>> 3c00f61b3d9b2e9bb1f01f3bb775a8f61c02f8e1
 
 	def render_base(self, window):
 

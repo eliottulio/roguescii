@@ -1,11 +1,12 @@
 import curses;
 
 class room:
-	def __init__(self, doors, ennemies):
+	def __init__(self, doors, ennemies, items):
 		self.closed = False;
 		self.visited = False;
 		self.doors = doors; # Top, Right, Bottom, Left
 		self.ennemies = ennemies;
+		self.items = items;
 
 	def is_open(self):
 		return not self.closed and len(self.ennemies) == 0;
@@ -57,6 +58,12 @@ class room:
 				else:
 					player.restore_pos();
 
+		# UPDATING ITEMS
+		for item in self.items[::-1]:
+			if (item.x, item.y) == (player.x, player.y):
+				player.pickup_item(item, self);
+				self.items.remove(item)
+
 		# UPDATING PLAYER HITTING ENNEMIES
 		for ennemy in self.ennemies[::-1]:
 			if (ennemy.x, ennemy.y) == (player.x, player.y):
@@ -82,7 +89,6 @@ class room:
 				if player.hp <= 0:
 					exit();
 
-
 		return player;
 
 
@@ -92,6 +98,8 @@ class room:
 		self.render_doors(window);
 		for ennemy in self.ennemies:
 			ennemy.render(window);
+		for item in self.items:
+			item.render(window);
 
 	def render_base(self, window):
 
@@ -123,3 +131,6 @@ class room:
 			window.addch(7, 0, '┐');
 
 		return;
+
+	def add_item(self, item):
+		self.items.append(item)

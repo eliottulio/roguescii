@@ -1,4 +1,5 @@
 import math
+import item as item_
 class player:
 	def __init__(self, pos, room_pos):
 		self.prev_x = pos[0];
@@ -8,11 +9,19 @@ class player:
 		self.dir = 'E'
 		self.room_x = room_pos[0];
 		self.room_y = room_pos[1];
-		self.hp = 10;
-		self.hp_max = 0;
-		self.armor = 20;
+
 		self.damage = 1;
 		self.speed = 1;
+
+		self.hp = 10;
+		self.hp_max = 10;
+
+		self.armor = {'helm' : item_.ArmorPiece(0, 0, '  ', 0, 'helm'),\
+					 'chest' : item_.ArmorPiece(0, 0, '  ', 0, 'helm'),\
+					 'legs' : item_.ArmorPiece(0, 0, '  ', 0, 'helm'),\
+					 'boots' : item_.ArmorPiece(0, 0, '  ', 0, 'helm')};
+
+		self.armor_val = sum(item.armor_val for item in self.armor.values());
 
 	def update(self, key):
 		self.prev_x = self.x;
@@ -61,9 +70,21 @@ class player:
 		elif dy == -1:
 			self.dir = 'N'
 
+	def pickup_item(self, item, room):
+		if isinstance(item, item_.HealItem):
+			self.hp += item.hp_healed;
+			if self.hp > self.hp_max:
+				self.hp = self.hp_max;
+		else: # item is an ArmorPiece
+			if self.armor[item.armor_slot].appearance != '  ':
+				self.armor[item.armor_slot].x = self.x
+				self.armor[item.armor_slot].y = self.y
+				room.add_item(self.armor[item.armor_slot])
+			self.armor[item.armor_slot] = item
+		self.armor_val = sum(item.armor_val for item in self.armor.values());
 
 	def get_hit(self, damage):
-		damage = math.ceil(damage * (1-self.armor/25));
+		damage = math.ceil(damage * (1-self.armor_val/25));
 		self.hp -= damage;
 
 	def restore_pos(self):
@@ -72,3 +93,7 @@ class player:
 	def render(self, window, stats_window):
 		window.addstr(self.y, self.x, '°°');
 		stats_window.addstr('<3' * (self.hp // 2) + '-3' * (self.hp % 2));
+		stats_window.addstr(1, 0, self.armor['helm'].appearance)
+		stats_window.addstr(1, 2, self.armor['chest'].appearance)
+		stats_window.addstr(1, 4, self.armor['legs'].appearance)
+		stats_window.addstr(1, 6, self.armor['boots'].appearance)

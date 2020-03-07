@@ -6,7 +6,14 @@ class room:
 		self.visited = False;
 		self.doors = doors; # Top, Right, Bottom, Left
 		self.ennemies = ennemies;
+<<<<<<< HEAD
 		self.items = items;
+=======
+		self.cells_pointed_at = [];
+
+	def signal(self, x, y):
+		self.cells_pointed_at += [(x, y)];
+>>>>>>> 3c00f61b3d9b2e9bb1f01f3bb775a8f61c02f8e1
 
 	def is_open(self):
 		return not self.closed and len(self.ennemies) == 0;
@@ -75,7 +82,7 @@ class room:
 					continue;
 		# UPDATING ENNEMIES HITTING PLAYER AND ENNEMY COLLISION
 		for ennemy in self.ennemies[::-1]:
-			ennemy.update(player);
+			ennemy.update(player, self);
 			for ennemy2 in self.ennemies[::-1]:
 				if ennemy is ennemy2:
 					pass;
@@ -98,15 +105,22 @@ class room:
 		self.render_doors(window);
 		for ennemy in self.ennemies:
 			ennemy.render(window);
+<<<<<<< HEAD
 		for item in self.items:
 			item.render(window);
+=======
+		for i, j in self.cells_pointed_at:
+			window.chgat(j, i, 2, curses.color_pair(1));
+		self.cells_pointed_at = [];
+>>>>>>> 3c00f61b3d9b2e9bb1f01f3bb775a8f61c02f8e1
 
 	def render_base(self, window):
 
 		try:
 			window.addstr(0, 0, '┌────────────────────────────┐');
 			for i in range(1, 9):
-				window.addstr(i, 0, '│                            │');
+				window.addch(i, 0, '│');
+				window.addch(i, 29, '│');
 			window.addstr(9, 0, '└────────────────────────────┘');
 		except:
 			pass;

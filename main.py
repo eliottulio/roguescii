@@ -10,6 +10,7 @@ def main(sc):
 	stats_window = curses.newwin(5, 10, 5, 35);
 	gameplay_window.keypad(True);
 	curses.curs_set(0);
+	curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_RED)
 
 
 
@@ -22,8 +23,9 @@ def main(sc):
 
 	def render_all():
 		stats_window.clear();
-		map.rooms[player.room_y][player.room_x].render(gameplay_window)
+		gameplay_window.clear();
 		player.render(gameplay_window, stats_window);
+		map.rooms[player.room_y][player.room_x].render(gameplay_window)
 		map.render(map_window, player);
 
 		sc.refresh();

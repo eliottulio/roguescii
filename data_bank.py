@@ -1,16 +1,16 @@
 import ennemy, room
 
-def skull_ai(player, self):
+def skull_ai(player, self, room):
 	self.current_frame = (self.current_frame + 1) % 1;
 
-def alien_ai(player, self):
+def alien_ai(player, self, room):
 	if self.current_frame == 1:
 		self.y += 1;
 	elif self.current_frame == 3:
 		self.y -= 1;
 	self.current_frame = (self.current_frame + 1) % 4;
 
-def mouthless_ai(player, self):
+def mouthless_ai(player, self, room):
 	if self.current_frame == 0:
 		dx = self.x - player.x;
 		dy = self.y - player.y;
@@ -22,13 +22,14 @@ def mouthless_ai(player, self):
 		self.appearance = '**'
 		self.current_frame = 0
 
-def genie_ai(player, self):
+def genie_ai(player, self, room):
 	if self.current_frame == 0:
 		dist2 = (self.x / 2 - (player.x / 2)) ** 2 + (self.y - player.y) ** 2;
 		if dist2 < 8:
 			self.appearance = '%%';
 			self.next_x = player.x if player.x != self.x else player.prev_x;
 			self.next_y = player.y if player.y != self.y else player.prev_y;
+			room.signal(self.next_x, self.next_y);
 			self.current_frame = 1;
 	else:
 		self.x = self.next_x;
@@ -36,7 +37,7 @@ def genie_ai(player, self):
 		self.appearance = '§§';
 		self.current_frame = 0;
 
-def backstabber_ai(player, self):
+def backstabber_ai(player, self, room):
 	if self.current_frame == 0:
 		dx = self.x - player.x
 		dy = self.y - player.y
@@ -60,15 +61,23 @@ def backstabber_ai(player, self):
 		if player.dir == 'N':
 			self.x = player.x;
 			self.y = player.y + 1;
+			room.signal(self.x, self.y - 1);
+			room.signal(self.x, self.y - 2);
 		elif player.dir == 'S':
 			self.x = player.x;
 			self.y = player.y - 1;
+			room.signal(self.x, self.y + 1);
+			room.signal(self.x, self.y + 2);
 		elif player.dir == 'E':
 			self.x = player.x - 2;
 			self.y = player.y;
+			room.signal(self.x + 2, self.y);
+			room.signal(self.x + 4, self.y);
 		elif player.dir == 'W':
 			self.x = player.x + 2;
 			self.y = player.y;
+			room.signal(self.x - 2, self.y);
+			room.signal(self.x - 4, self.y);
 		self.current_frame += 1
 	elif self.current_frame == 3:
 		if self.x == player.x or self.y == player.y:
@@ -79,7 +88,7 @@ def backstabber_ai(player, self):
 			self.y = player.prev_y
 		self.current_frame -= 1
 
-def ogre_ai(player, self):
+def ogre_ai(player, self, room):
 	if 0 <= self.current_frame < 3:
 		self.appearance = '||'
 		if self.current_frame == 2:
@@ -93,7 +102,7 @@ def ogre_ai(player, self):
 		self.y -= dy//abs(dy) if dy != 0 else 0
 		dx = (self.x - player.x)/2
 		dy = self.y - player.y
-		if (dx**2+dy**2)**.5 <= 2:
+		if dx**2 + dy**2 <= 4:
 			self.appearance = '{}'
 			self.current_frame += 1
 		else:self.appearance = ']['
@@ -102,6 +111,14 @@ def ogre_ai(player, self):
 		dx = abs((self.x - player.x)/2)
 		dy = abs(self.y - player.y)
 		if (dx == 0 and dy <= 2) or (dy == 0 and dx <= 2):
+			room.signal(self.x - 2, self.y) if self.x >= 3 else '';
+			room.signal(self.x - 4, self.y) if self.x >= 5 else '';
+			room.signal(self.x + 2, self.y) if self.x <= 27 else '';
+			room.signal(self.x + 4, self.y) if self.x <= 25 else '';
+			room.signal(self.x, self.y - 1) if self.y >= 2 else '';
+			room.signal(self.x, self.y - 2) if self.y >= 3 else '';
+			room.signal(self.x, self.y + 1) if self.y <= 8 else '';
+			room.signal(self.x, self.y + 2) if self.y <= 7 else '';
 			self.x = player.x
 			self.y = player.y
 			self.current_frame = 0
@@ -111,9 +128,8 @@ def ogre_ai(player, self):
 			dy = self.y - player.y
 			self.x -= dx//abs(dx)*2 if (dx != 0 and abs(dy) <= abs(dx/2)) else 0
 			self.y -= dy//abs(dy) if (dy != 0 and abs(dx) < abs(dy*2)) else 0
-		if self.current_frame + 1 < 8:
-			self.current_frame += 1
-		else:
+		self.current_frame += 1
+		if self.current_frame == 8:
 			self.current_frame = 0
 			self.appearance = '||'
 

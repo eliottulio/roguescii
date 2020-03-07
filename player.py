@@ -8,6 +8,7 @@ class player:
 		self.room_x = room_pos[0];
 		self.room_y = room_pos[1];
 		self.hp = 8;
+		self.hparmor = 0;
 		self.damage = 1;
 		self.speed = 1;
 
@@ -60,7 +61,13 @@ class player:
 
 
 	def get_hit(self, damage):
-		self.hp -= damage;
+		if self.hparmor > 0:
+			self.hparmor -= damage;
+			if self.hparmor < 0:
+				self.hp += self.hparmor;
+				self.hparmor = 0;
+		else:
+			self.hp -= damage
 
 	def restore_pos(self):
 		self.x, self.y = self.prev_x, self.prev_y;

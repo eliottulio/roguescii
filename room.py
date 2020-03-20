@@ -6,7 +6,7 @@ class room:
 		self.visited = False;
 		self.doors = doors; # Top, Right, Bottom, Left
 		self.ennemies = ennemies;
-		self.items = items;
+		self.items = [i for i in items];
 		self.cells_pointed_at = [];
 
 	def signal(self, x, y):

@@ -1,4 +1,4 @@
-import ennemy, room, item
+import ennemy, room, item, random
 
 def skull_ai(player, self, room):
 	self.current_frame = (self.current_frame + 1) % 1;
@@ -142,44 +142,85 @@ ennemies = {
 'ogre':			lambda x, y: ennemy.ennemy('||', (x, y), 4, 5, ogre_ai)
 }
 
+randc = lambda axis: (1, 27)[random.randint(0, 1)] if axis == 'x' else (1, 8)[random.randint(0, 1)]
 
+rand = lambda x,y: random.randint(x, y)
 
+armor_loot_tables = 	[lambda: item.ArmorPiece(randc('x'), randc('y'), *leather_armorset[rand(0,3)]),
+						lambda: item.ArmorPiece(randc('x'), randc('y'), *chainmail_armorset[rand(0,3)]),
+						lambda: item.ArmorPiece(randc('x'), randc('y'), *iron_plate_armorset[rand(0,3)]),
+						lambda: item.ArmorPiece(randc('x'), randc('y'), *steel_plate_armorset[rand(0,3)])]
+
+leather_armorset = [	('^^', 1, 'helm'),
+						('][', 2, 'chest'),
+						('::', 1.5, 'legs'),
+						(',,', .5, 'boots')]
+
+chainmail_armorset = [	('**', 2, 'helm'),
+						('##', 4, 'chest'),
+						('##', 3, 'legs'),
+						('¤¤', 1, 'boots')]
+
+iron_plate_armorset = [	('¤¤', 3, 'helm'),
+						('[]', 6, 'chest'),
+						('||', 4.5, 'legs'),
+						('**', 1.5, 'boots')]
+
+steel_plate_armorset = [('╭╮', 4, 'helm'),
+						('§§', 8, 'chest'),
+						('!!', 6, 'legs'),
+						(';;', 2, 'boots')]
+
+heal_loot_tables = [lambda: item.HealItem(randc('x'), randc('y'), *basic_heal_items[rand(0, 2)]),
+					lambda: item.HealItem(randc('x'), randc('y'), *better_heal_items[rand(0, 2)]),
+					lambda: item.HealItem(randc('x'), randc('y'), *best_heal_items[rand(0, 1)])]
+
+basic_heal_items = [(' Ò', 1),('-<', 2),('<3', 3)]
+
+better_heal_items = [('@ ', 4), ('∴ ', 5), ('∞', 6)]
+
+best_heal_items = [('Θ~',9), ('♡!', 10)]
 
 rooms = {
 (False, False, False, True):
 [
 room.room((False, False, False, True), [ennemies['genie'](5, 1), ennemies['mouthless'](7, 1), ennemies['genie'](9, 1),
-										ennemies['genie'](5, 8), ennemies['mouthless'](7, 8), ennemies['genie'](9, 8)], [])
+										ennemies['genie'](5, 8), ennemies['mouthless'](7, 8), ennemies['genie'](9, 8)],
+										[armor_loot_tables[3](), heal_loot_tables[2]()])
 ],
 
 (False, False, True, False):
 [
-room.room((False, False, True, False), [ennemies['ogre'](27, 1), ennemies['mouthless'](1, 1), ennemies['alien'](27, 8)], [item.ArmorPiece(13, 4, '\\/', 5, 'chest'), item.ArmorPiece(13, 5, '/\\', 10, 'chest'), item.HealItem(13, 6, '<3', 3)])
+room.room((False, False, True, False), [ennemies['ogre'](27, 1), ennemies['mouthless'](1, 1), ennemies['alien'](27, 8)],
+										[armor_loot_tables[3](), armor_loot_tables[2]()])
 ],
 
 (False, False, True, True):
 [
-room.room((False, False, True, True), [ennemies['skull'](27, 1)], [])
+room.room((False, False, True, True), [ennemies['mouthless'](27, 1), ennemies['backstabber'](1,1), ennemies['alien'](21, 5)],
+										[armor_loot_tables[2](), heal_loot_tables[1]()])
 ],
 
 (False, True, False, False):
 [
-room.room((False, True, False, False), [ennemies['mouthless'](1, 1), ennemies['genie'](1, 8), ennemies['alien'](27, 1)], [])
+room.room((False, True, False, False), [ennemies['mouthless'](1, 1), ennemies['genie'](1, 8), ennemies['alien'](27, 1)],
+										[armor_loot_tables[1](), heal_loot_tables[0]()])
 ],
 
 (False, True, False, True):
 [
-room.room((False, True, False, True), [ennemies['skull'](13, 1), ennemies['skull'](13, 8)], [])
+room.room((False, True, False, True), [ennemies['mouthless'](13, 1), ennemies['genie'](13, 8)],
+										[heal_loot_tables[0]()])
 ],
 
 (False, True, True, False):
 [
-room.room((False, True, True, False), [ennemies['skull'](1, 1)], [])
+room.room((False, True, True, False), [ennemies['genie'](1, 1)], [])
 ],
 
 (False, True, True, True):
 [
-room.room((False, True, True, True), [ennemies['skull'](13, 1)], [])
+room.room((False, True, True, True), [ennemies['backstabber'](13, 1), ennemies['ogre'](13, 4)], [])
 ],
 
 (True, False, False, False):
@@ -189,7 +230,7 @@ room.room((True, False, False, False), [ennemies['genie'](1, 8), ennemies['mouth
 
 (True, False, False, True):
 [
-room.room((True, False, False, True), [ennemies['skull'](27, 8)], [])
+room.room((True, False, False, True), [ennemies['ogre'](27, 8),ennemies['ogre'](13, 6)], [])
 ],
 
 (True, False, True, False):

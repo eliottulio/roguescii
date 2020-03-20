@@ -92,7 +92,9 @@ class player:
 
 	def render(self, window, stats_window):
 		window.addstr(self.y, self.x, '°°');
-		stats_window.addstr('<3' * (self.hp // 2) + '-3' * (self.hp % 2));
+		print(self.armor_val)
+		stats_window.addstr('#' * (10 - math.ceil(10 * (1-self.armor_val/25))))
+		stats_window.addstr(2, 0, '<3' * (self.hp // 2) + '-3' * (self.hp % 2));
 		stats_window.addstr(1, 0, self.armor['helm'].appearance)
 		stats_window.addstr(1, 2, self.armor['chest'].appearance)
 		stats_window.addstr(1, 4, self.armor['legs'].appearance)

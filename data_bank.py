@@ -183,83 +183,83 @@ best_heal_items = [('Θ~',9), ('♡!', 10)]
 
 rooms = {
 (False, False, False, True):
-[
+lambda: [
 room.room((False, False, False, True), [ennemies['genie'](5, 1), ennemies['mouthless'](7, 1), ennemies['genie'](9, 1),
 										ennemies['genie'](5, 8), ennemies['mouthless'](7, 8), ennemies['genie'](9, 8)],
 										[armor_loot_tables[3](), heal_loot_tables[2]()])
 ],
 
 (False, False, True, False):
-[
+lambda: [
 room.room((False, False, True, False), [ennemies['ogre'](27, 1), ennemies['mouthless'](1, 1), ennemies['alien'](27, 8)],
 										[armor_loot_tables[3](), armor_loot_tables[2]()])
 ],
 
 (False, False, True, True):
-[
+lambda: [
 room.room((False, False, True, True), [ennemies['mouthless'](27, 1), ennemies['backstabber'](1,1), ennemies['alien'](21, 5)],
 										[armor_loot_tables[2](), heal_loot_tables[1]()])
 ],
 
 (False, True, False, False):
-[
+lambda: [
 room.room((False, True, False, False), [ennemies['mouthless'](1, 1), ennemies['genie'](1, 8), ennemies['alien'](27, 1)],
 										[armor_loot_tables[1](), heal_loot_tables[0]()])
 ],
 
 (False, True, False, True):
-[
+lambda: [
 room.room((False, True, False, True), [ennemies['mouthless'](13, 1), ennemies['genie'](13, 8)],
 										[heal_loot_tables[0]()])
 ],
 
 (False, True, True, False):
-[
+lambda: [
 room.room((False, True, True, False), [ennemies['genie'](1, 1)], [])
 ],
 
 (False, True, True, True):
-[
+lambda: [
 room.room((False, True, True, True), [ennemies['backstabber'](13, 1), ennemies['ogre'](13, 4)], [])
 ],
 
 (True, False, False, False):
-[
+lambda: [
 room.room((True, False, False, False), [ennemies['genie'](1, 8), ennemies['mouthless'](27, 8)], [])
 ],
 
 (True, False, False, True):
-[
+lambda: [
 room.room((True, False, False, True), [ennemies['ogre'](27, 8),ennemies['ogre'](13, 6)], [])
 ],
 
 (True, False, True, False):
-[
+lambda: [
 room.room((True, False, True, False), [ennemies['skull'](1, 5), ennemies['skull'](27, 5)], [])
 ],
 
 (True, False, True, True):
-[
+lambda: [
 room.room((True, False, True, True), [ennemies['skull'](27, 1), ennemies['skull'](27, 8)], [])
 ],
 
 (True, True, False, False):
-[
+lambda: [
 room.room((True, True, False, False), [ennemies['skull'](1, 5)], [])
 ],
 
 (True, True, False, True):
-[
+lambda: [
 room.room((True, True, False, True), [ennemies['skull'](13, 8)], [])
 ],
 
 (True, True, True, False):
-[
+lambda: [
 room.room((True, True, True, False), [ennemies['skull'](1, 1), ennemies['skull'](1, 8)], [])
 ],
 
 (True, True, True, True):
-[
+lambda: [
 room.room((True, True, True, True), [ennemies['skull'](13, 5)], [])
 ]
 };

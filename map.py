@@ -54,7 +54,7 @@ class map:
 				current_y, current_x = new_y, new_x;
 		for row in self.rooms:
 			for i in range(len(row)):
-				row[i] = copy.deepcopy(random.choice(data_bank.rooms[tuple(row[i].doors)]));
+				row[i] = copy.deepcopy(random.choice(data_bank.rooms[tuple(row[i].doors)]()));
 
 	def render(self, window, player):
 		for i in range(self.height):

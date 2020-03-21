@@ -133,13 +133,29 @@ def ogre_ai(player, self, room):
 			self.current_frame = 0
 			self.appearance = '||'
 
+def zombie_ai(player, self, room):
+	if self.current_frame == 0:
+		self.x -= 2;
+		self.appearance = '<<'
+	elif self.current_frame == 1:
+		self.y -= 1;
+		self.appearance = '^^'
+	elif self.current_frame == 2:
+		self.x += 2;
+		self.appearance = '>>'
+	elif self.current_frame == 3:
+		self.y += 1;
+		self.appearance = 'vv'
+	self.current_frame = (self.current_frame + 1) % 4
+
 ennemies = {
 'skull': 		lambda x, y: ennemy.ennemy('00', (x, y), 1, 50, skull_ai),
 'alien': 		lambda x, y: ennemy.ennemy(')(', (x, y), 2, 1, alien_ai),
 'mouthless': 	lambda x, y: ennemy.ennemy('¤¤', (x, y), 1, 1, mouthless_ai),
 'genie': 		lambda x, y: ennemy.ennemy('§§', (x, y), 2, 2, genie_ai),
 'backstabber':	lambda x, y: ennemy.ennemy('FℲ', (x, y), 3, 3, backstabber_ai),
-'ogre':			lambda x, y: ennemy.ennemy('||', (x, y), 4, 5, ogre_ai)
+'ogre':			lambda x, y: ennemy.ennemy('||', (x, y), 4, 5, ogre_ai),
+'zombie':		lambda x, y: ennemy.ennemy('><', (x, y), 2, 2, zombie_ai)
 }
 
 randc = lambda axis: (1, 27)[random.randint(0, 1)] if axis == 'x' else (1, 8)[random.randint(0, 1)]
@@ -204,6 +220,8 @@ room.room((False, False, True, True), [ennemies['mouthless'](27, 1), ennemies['b
 (False, True, False, False):
 lambda: [
 room.room((False, True, False, False), [ennemies['mouthless'](1, 1), ennemies['genie'](1, 8), ennemies['alien'](27, 1)],
+										[armor_loot_tables[1](), heal_loot_tables[0]()]),
+room.room((False, True, False, False), [ennemies['zombie'](3, 2), ennemies['genie'](1, 8), ennemies['zombie'](27, 1)],
 										[armor_loot_tables[1](), heal_loot_tables[0]()])
 ],
 

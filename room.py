@@ -15,7 +15,7 @@ class room:
 	def is_open(self):
 		return not self.closed and len(self.ennemies) == 0;
 
-	def update(self, player):
+	def update(self, player, window):
 		self.visited = True;
 
 		# CHANGING ROOMS : LEFT
@@ -91,7 +91,10 @@ class room:
 				ennemy.restore_pos();
 				player.get_hit(ennemy.damage);
 				if player.hp <= 0:
-					exit();
+					window.addstr(2, 8, "Vous êtes mort.e !");
+					window.refresh();
+					window.getkey()
+					quit()
 
 		return player;
 

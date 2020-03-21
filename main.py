@@ -49,7 +49,7 @@ def main(sc):
 			continue;
 
 		player.update(key);
-		player = map.rooms[player.room_y][player.room_x].update(player);
+		player = map.rooms[player.room_y][player.room_x].update(player, gameplay_window);
 
 		render_all();
 
